@@ -38,9 +38,8 @@ public class User implements UserDetails {
     @Field("address")
     private String address;
 
-    @Getter
-    @Field("roles")
-    private String[] roles;
+    @Field("role")
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

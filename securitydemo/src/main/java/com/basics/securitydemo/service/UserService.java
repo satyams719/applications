@@ -30,7 +30,7 @@ public class UserService {
                 .firstName(registerUserRequestDTO.getFirstName())
                 .lastName(registerUserRequestDTO.getLastName())
                 .email(registerUserRequestDTO.getEmail())
-                .roles(registerUserRequestDTO.getRoles())
+//                .role(registerUserRequestDTO.getRoles())
                 .mobileNumber(registerUserRequestDTO.getMobileNumber())
                 .address(registerUserRequestDTO.getAddress())
                 .password(passwordEncoder.encode(password))
