@@ -1,4 +1,6 @@
 /home/online/project/urlshortner/src/main/java/com/url/urlshortener/UrlShortenerApplication.java
+/home/online/project/urlshortner/src/main/java/com/url/urlshortener/config/Base62Encoder.java
+/home/online/project/urlshortner/src/main/java/com/url/urlshortener/config/ZookeeperClient.java
 /home/online/project/urlshortner/src/main/java/com/url/urlshortener/controller/UrlShortenerController.java
 /home/online/project/urlshortner/src/main/java/com/url/urlshortener/model/UrlMapping.java
 /home/online/project/urlshortner/src/main/java/com/url/urlshortener/repository/UrlMappingRepository.java

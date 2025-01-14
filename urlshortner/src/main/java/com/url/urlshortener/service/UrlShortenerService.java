@@ -1,5 +1,7 @@
 package com.url.urlshortener.service;
 
+import com.url.urlshortener.config.Base62Encoder;
+import com.url.urlshortener.config.ZookeeperClient;
 import com.url.urlshortener.model.UrlMapping;
 import com.url.urlshortener.repository.UrlMappingRepository;
 import com.url.urlshortener.request.URLShortenerRequest;
@@ -11,11 +13,13 @@ import java.util.Optional;
 @Service
 public class UrlShortenerService {
 
-    private static String DOMAIN = "http://localhost:8080/api/v1/";
+    private static String DOMAIN = "http://localhost:8081/api/v1/";
 
+    private final ZookeeperClient zookeeperClient;
     private final UrlMappingRepository urlMappingRepository;
 
-    public UrlShortenerService(UrlMappingRepository urlMappingRepository) {
+    public UrlShortenerService(ZookeeperClient zookeeperClient, UrlMappingRepository urlMappingRepository) {
+        this.zookeeperClient = zookeeperClient;
         this.urlMappingRepository = urlMappingRepository;
     }
 
@@ -26,10 +30,11 @@ public class UrlShortenerService {
             return DOMAIN+urlMappingOptional.get().getShortId();
         }
 
-        String uniqueId = generateUniqueId(longUrl);
+        String uniqueId = zookeeperClient.generateUniqueId();
+        String shortId = Base62Encoder.generate7CharBase62(Long.parseLong(uniqueId));
         UrlMapping urlMapping = new UrlMapping();
         urlMapping.setLongUrl(longUrl);
-        urlMapping.setShortId(uniqueId);
+        urlMapping.setShortId(shortId);
         urlMappingRepository.save(urlMapping);
         return DOMAIN+uniqueId;
     }
