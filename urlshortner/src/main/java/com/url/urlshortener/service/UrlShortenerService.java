@@ -36,7 +36,7 @@ public class UrlShortenerService {
         urlMapping.setLongUrl(longUrl);
         urlMapping.setShortId(shortId);
         urlMappingRepository.save(urlMapping);
-        return DOMAIN+uniqueId;
+        return DOMAIN+shortId;
     }
 
     private String generateUniqueId(String longUrl) {
