@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class MongoUserDetailsService implements UserDetailsService {
@@ -43,17 +44,12 @@ public class MongoUserDetailsService implements UserDetailsService {
 
 
     private Collection<? extends GrantedAuthority> getAuthorities(Role role) {
-        // Map role and permissions to authorities
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName().toUpperCase()));
-        // Add the role itself
 
-        // Add permissions as authorities
-        if (role.getPermissions() != null) {
-            role.getPermissions().forEach(permission ->
-                    authorities.add(new SimpleGrantedAuthority(permission.name())));
-        }
-
-        return authorities;
+        return role
+                .getPermissions()
+                .stream()
+                .map(permission -> new SimpleGrantedAuthority(permission.name()))
+                .collect(Collectors.toList());
     }
+
 }

@@ -9,7 +9,7 @@ public enum RoleLevel {
     ADMIN(2),
     MODERATOR(3),
     USER(4),
-    GUEST(5);
+    GUEST(10);
 
     private final int level;
 

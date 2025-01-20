@@ -1,5 +1,6 @@
 package com.basics.securitydemo.service;
 
+import com.basics.securitydemo.dao.RoleDAO;
 import com.basics.securitydemo.dao.UserDAO;
 import com.basics.securitydemo.model.User;
 import com.basics.securitydemo.requestdto.RegisterUserRequestDTO;
@@ -16,11 +17,12 @@ public class UserService {
     private final UserDAO userDAO;
     private final PasswordEncoder passwordEncoder;
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+";
+    private final RoleDAO roleDAO;
 
-
-    public UserService(UserDAO userDAO, PasswordEncoder passwordEncoder) {
+    public UserService(UserDAO userDAO, PasswordEncoder passwordEncoder, RoleDAO roleDAO) {
         this.userDAO = userDAO;
         this.passwordEncoder = passwordEncoder;
+        this.roleDAO = roleDAO;
     }
 
     public RegisterUserResponseDTO registerUser(RegisterUserRequestDTO registerUserRequestDTO) throws Exception {
@@ -30,7 +32,7 @@ public class UserService {
                 .firstName(registerUserRequestDTO.getFirstName())
                 .lastName(registerUserRequestDTO.getLastName())
                 .email(registerUserRequestDTO.getEmail())
-//                .role(registerUserRequestDTO.getRoles())
+                .role(roleDAO.getRolesById(registerUserRequestDTO.getRoleId()))
                 .mobileNumber(registerUserRequestDTO.getMobileNumber())
                 .address(registerUserRequestDTO.getAddress())
                 .password(passwordEncoder.encode(password))

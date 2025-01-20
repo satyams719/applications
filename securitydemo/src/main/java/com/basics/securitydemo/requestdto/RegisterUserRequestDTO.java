@@ -12,7 +12,7 @@ public class RegisterUserRequestDTO {
     private String firstName;
     private String lastName;
     private String email;
-    private String[] roles;
+    private Long roleId;
     private String mobileNumber;
     private String address;
 }
