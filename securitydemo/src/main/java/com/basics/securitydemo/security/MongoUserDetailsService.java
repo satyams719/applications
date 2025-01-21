@@ -44,12 +44,11 @@ public class MongoUserDetailsService implements UserDetailsService {
 
 
     private Collection<? extends GrantedAuthority> getAuthorities(Role role) {
-
-        return role
-                .getPermissions()
-                .stream()
-                .map(permission -> new SimpleGrantedAuthority(permission.name()))
-                .collect(Collectors.toList());
+        Set<Permission> permissionSet = roleService.resolvePermissions(role);
+       return permissionSet
+               .stream()
+               .map(permission -> new SimpleGrantedAuthority(permission.name()))
+               .collect(Collectors.toList());
     }
 
 }
