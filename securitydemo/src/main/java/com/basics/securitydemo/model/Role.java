@@ -49,6 +49,11 @@ public class Role {
         return Objects.equals(id, role.id);
     }
 
+    public Role(Long id, String name){
+        this.id = id;
+        this.name = name;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id);
